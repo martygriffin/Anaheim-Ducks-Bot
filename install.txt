@@ -1,0 +1,4 @@
+ Required Python Package install for Anaheim Ducks Bot:
+ *python-dateutil #awesome datetime parasing
+ *OAuth2Util #oauth support for reddit loing
+ *praw #python library for interacting with reddit
