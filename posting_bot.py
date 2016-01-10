@@ -42,7 +42,7 @@ while(True):
     				#make that this game was posted so we do not duplicate any work
     				already_done.append(game["startDate"].date())
     				break
-	sleep(1800)
+	time.sleep(1800)
     #sleep for 30 mins
     
 
