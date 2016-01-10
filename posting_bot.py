@@ -29,7 +29,6 @@ reader = csv.reader(open('ducks.csv','rb'))
 already_done = []
 
 while(True):
-
 	for line in reader:
 			#convert game data to Dict
         	game = convertToDict(line)
@@ -43,8 +42,9 @@ while(True):
     				#make that this game was posted so we do not duplicate any work
     				already_done.append(game["startDate"].date())
     				break
+	sleep(1800)
     #sleep for 30 mins
-    sleep(1800)
+    
 
 
 
