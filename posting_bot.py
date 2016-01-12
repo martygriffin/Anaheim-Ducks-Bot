@@ -38,7 +38,12 @@ while(True):
     			#check if it is 12 hours before game time
     			if(postTime < datetime.today() and game["startDate"].date() not in already_done):
     				#make pregram thread post
-    				makePregamePost(game)
+    				try:
+    					makePregamePost(game)
+    				except: 
+    					print("Connection error....will retry in 300 seconds")
+    					time.sleep(300)
+
     				#make that this game was posted so we do not duplicate any work
     				already_done.append(game["startDate"].date())
     				break
