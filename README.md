@@ -11,7 +11,7 @@ install all packages in install.txt using pip
 python ./posting_bot
 
 ##Run in Background
-sudo sh ./duck_monitor.sh &
+./duck_monitor.sh &
 
 The shell script ensures that the posting bot script contiunes to run and automatically restarts it on any failures
 
