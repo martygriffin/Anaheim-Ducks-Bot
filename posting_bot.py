@@ -3,8 +3,10 @@ import OAuth2Util
 from dateutil.parser import parse
 from datetime import timedelta, datetime
 import time
-
 import csv
+import sys
+
+print ("Duck Bot Start Up")
 
 def convertToDict(line):
 	gameDict = {}
@@ -29,6 +31,7 @@ reader = csv.reader(open('ducks.csv','rb'))
 already_done = []
 
 while(True):
+	print("checking for games today.....")
 	for line in reader:
 			#convert game data to Dict
         	game = convertToDict(line)
