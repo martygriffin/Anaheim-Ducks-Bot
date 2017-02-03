@@ -1,5 +1,6 @@
 # Anaheim-Ducks-Bot
 Bot for the Anaheim Ducks Subreddit
+
 v1.1
 
 -added support for post game threads
