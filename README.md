@@ -1,7 +1,8 @@
 # Anaheim-Ducks-Bot
 Bot for the Anaheim Ducks Subreddit
-
-v0.1
+v1.1
+-added support for post game threads
+v1.0
 -added support for posting pregame threads 12 hours before game time
 
 ##Installation
