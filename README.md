@@ -20,7 +20,7 @@ v1.0
 python ./posting_bot
 
 ##Run in Background
-./duck_monitor.sh &
+util/duck_monitor.sh &
 
 The shell script ensures that the posting bot script contiunes to run and automatically restarts it on any failures
 
