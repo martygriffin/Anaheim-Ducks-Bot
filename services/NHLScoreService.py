@@ -2,8 +2,9 @@
 
 import urllib, json
 
-def checkForPostGame(month, date, year, team):
-    
+ #check the NHL schedule API for a game with a given status for a given team
+def checkForPostGame(month, date, year, team, status):
+
         url = "https://statsapi.web.nhl.com/api/v1/schedule?startDate="+str(year)+"-"+str(month)+"-"+str(date)+"&endDate="+str(year)+"-"+str(month)+"-"+str(date)+"&expand=schedule.teams,schedule.linescore&leaderCategories=&leaderGameTypes=R&site=en_nhl&teamId=&gameType=&timecode="
      
         response = urllib.urlopen(url)
@@ -11,7 +12,7 @@ def checkForPostGame(month, date, year, team):
 
         for day in data["dates"]:
                 for game in day["games"]:
-                        if("final" in game["status"]["detailedState"].lower()):
+                        if(status in game["status"]["detailedState"].lower()):
                                 if team in game["teams"]["away"]["team"]["teamName"].lower():
                                         print("Ducks away game final")
                                         return True

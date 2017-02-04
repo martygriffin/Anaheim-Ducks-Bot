@@ -7,55 +7,62 @@ import gc
 import os
 from services import RedditService
 from services import NHLScoreService
-
-
-
-def convertToDict(line):
-        gameDict = {}
-        date = parse(line[0] + " "+line [1])
-        gameDict["startDate"] = date
-        gameDict["startTime"] = line[1]
-        gameDict["teams"] = line[2]
-        gameDict["location"] = line[3]
-        gameDict["description"] = line[4]
-        return gameDict    
+from utils import Util
+ 
         
-already_done = []
-already_done_game_thread = []
+#keeps track of pregame threads that have already been posted
+already_done_pregame_thread = []
+
+#keeps track of postgame threads that have already been posted
 already_done_post_game_thread = []
 
+#time to selep between checks
 sleepTime = 1200
 
-while(True):
+#hours before game to post pregame thread
+pregameHoursBefore= 12
+
+#hours after start to start checking for game end
+hoursAfterStartToCheck= 2
+
+#NHL team Name
+teamName= 'ducks'
+
+
+while True:
         currentTime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         print("checking for games today....." + currentTime)
         file = open('ducks.csv','rb')
         reader = csv.reader(file)
 
         for line in reader:
-                game = convertToDict(line)
+                game = Util.convertToDict(line)
+                #check if therei a game toda
                 if(game["startDate"].date() == datetime.today().date()):
-                        postTime = game["startDate"] + timedelta(hours=-12)
-                        gameThreadTime = game["startDate"] + timedelta(hours=-1)
+                        postTime = game["startDate"] + timedelta(hours=-pregameHoursBefore)
                         print("PostTime :")
                         print(postTime)
-                        print("Game Thread Time :")
-                        print(gameThreadTime)
-                        if(postTime < datetime.today() and game["startDate"].date() not in already_done):
+
+                        postGameTimeCheck = game["startDate"] + timedelta(hours=+hoursAfterStartToCheck)
+                      
+                        #if the post time is before the current time and there is not already a pregame thread posted
+                        if(postTime < datetime.today() and game["startDate"].date() not in already_done_pregame_thread):
                                 print("connecting.....")
                                 try:
                                         RedditService.makePregamePost(game)
-                                        already_done.append(game["startDate"].date())
+                                        already_done_pregame_thread.append(game["startDate"].date())
                                 except Exception as e:
                                         print(e)
                                         print("Connection error....will retry in 300 seconds")
                                         time.sleep(600)
-                        elif (game["startDate"].date() in already_done and game["startDate"].date() not in already_done_post_game_thread):
+                        #if a pre-game thread has already been posted but not a post grame thread
+                        elif (postGameTimeCheck < datetime.today() and game["startDate"].date() in already_done_pregame_thread and game["startDate"].date() not in already_done_post_game_thread):
                                 print("attempting to make postgame postand speed up score check.....")
 
                                 sleepTime  = 60
                                 try:
-                                        if(NHLScoreService.checkForPostGame(datetime.today().month,datetime.today().day, datetime.today().year, "ducks")):
+                                        #check to see if the game is final
+                                        if(NHLScoreService.checkForPostGame(datetime.today().month,datetime.today().day, datetime.today().year, teamName, "final")):
                                                 RedditService.makePostGamePost(game)
                                                 already_done_post_game_thread.append(game["startDate"].date())
                                                 sleepTime = 1200
