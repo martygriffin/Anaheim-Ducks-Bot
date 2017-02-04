@@ -1,4 +1,3 @@
-
 from dateutil.parser import parse
 from datetime import timedelta, datetime
 import time
@@ -8,6 +7,7 @@ import gc
 import os
 from services import RedditService
 from services import NHLScoreService
+
 
 
 def convertToDict(line):
