@@ -101,7 +101,7 @@ while(True):
                                 sleepTime  = 60
                                 try:
                                         if(checkForPostGame(datetime.today().month,datetime.today().day, datetime.today().year)):
-                                                makePostGame(game)
+                                                makePostGamePost(game)
                                                 already_done_post_game_thread.append(game["startDate"].date())
                                                 sleepTime = 1200
                                 except:
