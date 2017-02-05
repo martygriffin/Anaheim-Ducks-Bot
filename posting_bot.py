@@ -1,4 +1,4 @@
-from dateutil.parser import parse
+
 from datetime import timedelta, datetime
 import time
 import csv
@@ -40,8 +40,6 @@ while True:
                 #check if therei a game toda
                 if(game["startDate"].date() == datetime.today().date()):
                         postTime = game["startDate"] + timedelta(hours=-pregameHoursBefore)
-                        print("PostTime :")
-                        print(postTime)
 
                         postGameTimeCheck = game["startDate"] + timedelta(hours=+hoursAfterStartToCheck)
                       

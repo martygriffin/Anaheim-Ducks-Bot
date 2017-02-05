@@ -22,5 +22,5 @@ def makePostGamePost(game):
         print("attempting post.....")
         r = praw.Reddit(user_agent=user_agent,password=password,username=username,client_id=client,client_secret=secret)
         subreddit = r.subreddit(ducksSubreddit)
-        subreddit.submit('Post Game Thread: '+game["startDate"].date().strftime("%B %d, %Y") +" - "+game["teams"])
+        subreddit.submit('Post Game Thread: '+game["startDate"].date().strftime("%B %d, %Y") +" - "+game["teams"], selftext="Discuss!")
         print("posted post game for "+game["teams"])
