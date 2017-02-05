@@ -39,8 +39,10 @@ while True:
                 game = Util.convertToDict(line)
                 #check if therei a game toda
                 if(game["startDate"].date() == datetime.today().date()):
+                        #time to post pregream thread
                         postTime = game["startDate"] + timedelta(hours=-pregameHoursBefore)
 
+                        #time to begin check for end of game
                         postGameTimeCheck = game["startDate"] + timedelta(hours=+hoursAfterStartToCheck)
                       
                         #if the post time is before the current time and there is not already a pregame thread posted
